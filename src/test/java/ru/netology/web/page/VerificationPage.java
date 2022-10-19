@@ -3,6 +3,7 @@ package ru.netology.web.page;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.DataHelper;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -10,6 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class VerificationPage {
   private final SelenideElement codeField = $("[data-test-id=code] input");
   private final SelenideElement verifyButton = $("[data-test-id=action-verify]");
+  private SelenideElement errorPopup = $(".notification__content");
 
 
   public VerificationPage() {
@@ -17,9 +19,13 @@ public class VerificationPage {
   }
 
 
-  public void validVerify(DataHelper.VerificationCode verificationCode) {
-    codeField.setValue(verificationCode.getCode());
+  public DashboardPage validVerify(String verificationCode) {
+    codeField.setValue(verificationCode);
     verifyButton.click();
-    new DashboardPage();
+    return new DashboardPage();
+  }
+
+  public void verifyCodeIsInvalid() {
+    errorPopup.shouldHave(text("Неверно указан код! Попробуйте ещё раз."));
   }
 }

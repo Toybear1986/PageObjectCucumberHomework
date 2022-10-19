@@ -3,8 +3,6 @@ package ru.netology.web.data;
 import lombok.Value;
 import ru.netology.web.page.CheckBalance;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 
 public class DataHelper {
   private DataHelper() {
@@ -34,7 +32,7 @@ public class DataHelper {
     String code;
   }
 
-  public static VerificationCode getVerificationCodeFor() {
+  public static VerificationCode getVerificationCode() {
     return new VerificationCode("12345");
   }
 

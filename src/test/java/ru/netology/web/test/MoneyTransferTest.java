@@ -30,11 +30,11 @@ class MoneyTransferTest {
     var loginPage = new LoginPage();
     var authInfo = DataHelper.getAuthInfo();
     var verificationPage = loginPage.validLogin(authInfo);
-    var verificationCode = DataHelper.getVerificationCodeFor();
-    verificationPage.validVerify(verificationCode);
+    var verificationCode = DataHelper.getVerificationCode();
+    verificationPage.validVerify(String.valueOf(verificationCode));
     int checkBalanceTo = checkBalance(card0001);
     var value = 100;
-    MoneyTransfer.rechargeCard(card0001, value);
+    MoneyTransfer.rechargeCard(card0001, card0002, value);
     System.out.println(checkBalance(card0001) - (checkBalanceTo + value));
     assertEquals(checkBalanceTo + value, checkBalance(card0001));
   }
@@ -45,11 +45,11 @@ class MoneyTransferTest {
     var loginPage = new LoginPage();
     var authInfo = DataHelper.getAuthInfo();
     var verificationPage = loginPage.validLogin(authInfo);
-    var verificationCode = DataHelper.getVerificationCodeFor();
-    verificationPage.validVerify(verificationCode);
+    var verificationCode = DataHelper.getVerificationCode();
+    verificationPage.validVerify(String.valueOf(verificationCode));
     int checkBalanceTo = checkBalance(card0002);
     var value = 100;
-    MoneyTransfer.rechargeCard(card0002, value);
+    MoneyTransfer.rechargeCard(card0002, card0001, value);
     System.out.println(checkBalance(card0002) - (checkBalanceTo + value));
     assertEquals(checkBalanceTo + value, checkBalance(card0002));
   }
@@ -59,11 +59,11 @@ class MoneyTransferTest {
     var loginPage = new LoginPage();
     var authInfo = DataHelper.getAuthInfo();
     var verificationPage = loginPage.validLogin(authInfo);
-    var verificationCode = DataHelper.getVerificationCodeFor();
-    verificationPage.validVerify(verificationCode);
+    var verificationCode = DataHelper.getVerificationCode();
+    verificationPage.validVerify(String.valueOf(verificationCode));
     int checkBalanceFrom = checkBalance(card0002);
     var value = 100;
-    MoneyTransfer.rechargeCard(card0001, value);
+    MoneyTransfer.rechargeCard(card0001, card0002,value);
     System.out.println((checkBalanceFrom + value) - checkBalance(card0002));
     assertEquals(checkBalanceFrom + value, checkBalance(card0001));
   }
@@ -74,11 +74,11 @@ class MoneyTransferTest {
     var loginPage = new LoginPage();
     var authInfo = DataHelper.getAuthInfo();
     var verificationPage = loginPage.validLogin(authInfo);
-    var verificationCode = DataHelper.getVerificationCodeFor();
-    verificationPage.validVerify(verificationCode);
+    var verificationCode = DataHelper.getVerificationCode();
+    verificationPage.validVerify(String.valueOf(verificationCode));
     int checkBalanceFrom = checkBalance(card0001);
     var value = 100;
-    MoneyTransfer.rechargeCard(card0002, value);
+    MoneyTransfer.rechargeCard(card0002, card0001, value);
     System.out.println((checkBalanceFrom + value) - checkBalance(card0001));
     assertEquals(checkBalanceFrom + value, checkBalance(card0001));
   }
