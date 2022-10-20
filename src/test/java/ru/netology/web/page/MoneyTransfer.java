@@ -15,14 +15,11 @@ public class MoneyTransfer {
   public static void rechargeCard(String cardTo, String cardFrom, double value) {
     if (cardTo.equals(DataHelper.card0001)) {
       rechargeCard0001.click();
-      amountField.setValue(String.valueOf(value));
-      fromField.setValue(cardFrom);
-      submitButton.click();
     } else {
       rechargeCard0002.click();
-      amountField.setValue(String.valueOf(value));
-      fromField.setValue(cardFrom);
-      submitButton.click();
     }
+    amountField.setValue(String.valueOf(value));
+    fromField.setValue(cardFrom);
+    submitButton.click();
   }
 }
