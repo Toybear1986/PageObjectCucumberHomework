@@ -9,13 +9,11 @@ import ru.netology.web.data.DataHelper;
 import ru.netology.web.page.*;
 
 import static org.junit.Assert.assertEquals;
-import static ru.netology.web.data.DataHelper.card0001;
-import static ru.netology.web.data.DataHelper.card0002;
+import static ru.netology.web.data.DataHelper.*;
 
 
 public class TemplateSteps {
   private static LoginPage loginPage;
-  private static DashboardPage dashboardPage;
   private static VerificationPage verificationPage;
 
   @Пусть("открыта страница с формой авторизации {string}")
@@ -30,12 +28,12 @@ public class TemplateSteps {
 
   @И("пользователь вводит проверочный код 'из смс' {string}")
   public void setValidCode(String verificationCode) {
-    dashboardPage = verificationPage.validVerify(verificationCode);
+    verificationPage.validVerify(getVerificationCode());
   }
 
   @Тогда("происходит успешная авторизация и пользователь попадает на страницу 'Личный кабинет'")
   public void verifyDashboardPage() {
-    dashboardPage.verifyIsDashboardPage();
+    new DashboardPage();
   }
 
   @Тогда("появляется ошибка о неверном коде проверки")
@@ -52,21 +50,30 @@ public class TemplateSteps {
 
   @Когда("пользователь переводит {int} рублей с карты с номером {string} на свою {int} карту с главной страницы")
   public void userRechargeCard(int value, String card, int numberOfCard) {
+    CardInfo cardTo = null;
+    CardInfo cardFrom = null;
     if (numberOfCard == 1) {
-      MoneyTransfer.rechargeCard(card0001, card, value);
+      cardTo = getFirstCardInfo();
+      cardFrom = getSecondCardInfo();
+    } else if (numberOfCard == 2) {
+      cardTo = getSecondCardInfo();
+      cardFrom =  getFirstCardInfo();
     }
-    if (numberOfCard == 2) {
-      MoneyTransfer.rechargeCard(card0002, card, value);
-    }
+      DashboardPage dashboardPage = new DashboardPage();
+      dashboardPage.selectCard(cardTo);
+      MoneyTransferPage moneyTransferPage = new MoneyTransferPage();
+      moneyTransferPage.rechargeCard(value, cardFrom);
   }
 
   @Тогда("баланс его {int} карты из списка на главной странице должен стать {int} рублей.")
   public void checkBalance(int numberOfCard, int value) {
+    DashboardPage dashboardPage = new DashboardPage();
+    CardInfo checkCard = null;
     if (numberOfCard == 1) {
-      assertEquals(value,CheckBalance.checkBalance(card0001));
+      checkCard = getFirstCardInfo();
+    } else if (numberOfCard == 2) {
+      checkCard = getSecondCardInfo();
     }
-    if (numberOfCard == 2) {
-      assertEquals(value,CheckBalance.checkBalance(card0002));
-    }
+    assertEquals(value, dashboardPage.checkBalance(checkCard));
   }
 }
