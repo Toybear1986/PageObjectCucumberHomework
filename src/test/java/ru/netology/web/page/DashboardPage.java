@@ -3,9 +3,8 @@ package ru.netology.web.page;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.web.data.DataHelper;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -17,17 +16,17 @@ public class DashboardPage {
   private final String balanceFinish = " р.";
   private final ElementsCollection cards = $$(".list__item div");
 
-  public DashboardPage() {
+  public void verifyIsDashboardPage() {
     heading.shouldBe(visible);
   }
 
-  public int checkBalance(DataHelper.CardInfo cardInfo) {
-    var text = cards.findBy(text(cardInfo.getCardNumber().substring(12, 16))).getText();
+  public int checkBalance(int index) {
+    var text = cards.get(index - 1).getText();
     return extractBalance(text);
   }
 
-  public MoneyTransferPage selectCard(DataHelper.CardInfo cardInfo) {
-    cards.findBy(attribute("data-test-id", cardInfo.getTestId())).$("button").click();
+  public MoneyTransferPage selectCard(int index) {
+    cards.get(index - 1).$x("button[@data-test-id='action-deposit']").click();
     return new MoneyTransferPage();
   }
 
@@ -37,6 +36,4 @@ public class DashboardPage {
     var value = text.substring(start + balanceStart.length(), finish);
     return Integer.parseInt(value);
   }
-
-
 }

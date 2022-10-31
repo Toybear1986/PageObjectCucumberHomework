@@ -15,13 +15,13 @@ repositories {
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter:5.8.2"
-    testImplementation 'org.junit.vintage:junit-vintage-engine:5.8.2'
-    testImplementation 'com.codeborne:selenide:6.1.2'
-    testImplementation 'io.cucumber:cucumber-java:7.1.0'
-    testImplementation 'io.cucumber:cucumber-junit:7.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.9.0'
+    testImplementation 'com.codeborne:selenide:6.9.0'
+    testImplementation 'io.cucumber:cucumber-java:7.8.1'
+    testImplementation 'io.cucumber:cucumber-junit:7.8.1'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
-    testImplementation 'org.slf4j:slf4j-simple:1.7.32'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.3'
 }
 
 test {
